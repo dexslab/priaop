@@ -21,7 +21,7 @@
 These can be set using server console, RCON, or the various commands above
 
 |Convar| Replicated|Default|Description|
-|--|--|--|
+|--|--|--|--|
 | priority_cooldown|true|priority_onhold_message|Current Priority Cooldown message displayed to players|
 |priority_status|true|onhold|Current Priority Cooldown status used to set messages and control Friendly Fire|
 |priority_onhold_message|false|Priorities are on HOLD|Message for priority on hold|
