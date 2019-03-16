@@ -1,4 +1,4 @@
-# Priority / AOP 
+# Priority / AOP
 
 So when I was developing for a particular server i decided to combine 2 Great Resouces into one and make them run EVEN Better by implementing them with C# and the new Replicated Convar system(Thanks Vespura). Introducing a newly redesigned Priority Cooldown and Area of Patrol script that is FULLY customizable. below you will find the the list of Convars used to set everything and the ability to set it how you want. I have included a config file similar to the one used in vMenu to automatically set the convars to there default versions customize this file as you see fit and enjoy countless hours of Quality RP. Now on to the goodness
 
@@ -41,8 +41,8 @@ These can be set using server console, RCON, or the various commands above
 |priority_finished_color|false|80,252,12,255|Color for priority cooldown complete message|
 
 ## Area of Patrol
-    Area of Patrol has also been modified and made simpler to use. First you can use any amount of word you woul
-	
+
+Area of Patrol has also been modified and made simpler to use. First you can use any amount of word you woul
 
 ### Commands
 
