@@ -16,7 +16,6 @@ namespace PriAOPClient
         internal PriorityCooldown(IPriAOPInterface aOPInterface)
         {
             iface = aOPInterface;
-            PriAOPClient.TriggerServerEvent("priaop:GetIsStaff");
             currentStatus = API.GetConvar("priority_status", "onhold").ToLower();
         }
 
@@ -47,16 +46,20 @@ namespace PriAOPClient
             switch (pcstatus)
             {
                 case "onhold":
-                    API.SetTextColour(245, 19, 23, 255);
+                    string[] ohcolor = API.GetConvar("priority_onhold_color", "245,19,23,255").Split(',');
+                    API.SetTextColour(int.Parse(ohcolor[0]), int.Parse(ohcolor[1]), int.Parse(ohcolor[2]), int.Parse(ohcolor[3]));
                     break;
                 case "cooldown":
-                    API.SetTextColour(245, 157, 50, 255);
+                    string[] cdcolor = API.GetConvar("priority_cooldown_color", "245,157,50,255").Split(',');
+                    API.SetTextColour(int.Parse(cdcolor[0]), int.Parse(cdcolor[1]), int.Parse(cdcolor[2]), int.Parse(cdcolor[3]));
                     break;
                 case "active":
-                    API.SetTextColour(19, 23, 245, 255);
+                    string[] acolor = API.GetConvar("priority_inprogress_color", "19,23,245,255").Split(',');
+                    API.SetTextColour(int.Parse(acolor[0]), int.Parse(acolor[1]), int.Parse(acolor[2]), int.Parse(acolor[3]));
                     break;
                 case "finished":
-                    API.SetTextColour(80, 252, 12, 255);
+                    string[] fcolor = API.GetConvar("priority_finished_color", "80,252,12,255").Split(',');
+                    API.SetTextColour(int.Parse(fcolor[0]), int.Parse(fcolor[1]), int.Parse(fcolor[2]), int.Parse(fcolor[3]));
                     break;
             }
             

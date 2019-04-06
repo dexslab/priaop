@@ -1,4 +1,5 @@
-﻿using CitizenFX.Core.Native;
+﻿using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,11 @@ namespace PriAOPServer
                 inPC = false;
                 pcStartTime = DateTime.Now;
                 API.SetConvarReplicated("priority_status", "finished");
-                API.SetConvarReplicated("priority_cooldown", $"Peace time has ended");
+                API.SetConvarReplicated("priority_cooldown", API.GetConvar("priority_onhold_message","Peace time has ended"));
             }
             else if (elasped.TotalSeconds < currentPC * 60 && pcStarted && inPC)
             {
-                API.SetConvarReplicated("priority_cooldown", $"Priority Cooldown: {elasped.Subtract(TimeSpan.FromMinutes(currentPC)).ToString(@"mm\:ss")} until the next priority can begin");
+                API.SetConvarReplicated("priority_cooldown",String.Format(API.GetConvar("priority_cooldown_message","Priority Cooldown: {0} until the next priority can begin"), elasped.Subtract(TimeSpan.FromMinutes(currentPC)).ToString(@"mm\:ss")));
             }
         }
 
@@ -54,20 +55,16 @@ namespace PriAOPServer
 
         private async void ResetPC(int p, List<object> args, string raw)
         {
-
-            if (await iPriAOP.CheckPerms(p))
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[p].Handle, "priaop.priority.use"))
             {
                 inPC = false;
                 pcStarted = false;
                 API.SetConvarReplicated("priority_status", "finished");
-                API.SetConvarReplicated("priority_cooldown", $"Peace time has ended");
+                API.SetConvarReplicated("priority_cooldown", API.GetConvar("priority_finished_message", "Peace time has ended"));
             }
             else
             {
-                dynamic stuff = new System.Dynamic.ExpandoObject();
-                stuff.args = new string[] { "^1PriorityCooldown", $"Nice try, you dont have permission to use this command" };
-                stuff.color = new int[] { 255, 255, 0 };
-                iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
+                SendPermissionErrorMessage(iPriAOP.IPlayerList[p]);
                 return;
             }
         }
@@ -79,13 +76,13 @@ namespace PriAOPServer
 
         private async void ActivatePC(int p, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(p))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[p].Handle, "priaop.priority.use"))
             {
                 if (args.Count != 1)
                 {
                     dynamic stuff = new System.Dynamic.ExpandoObject();
-                    stuff.args = new string[] { "^1PriorityCooldown", $"You must specify a time when using this command" };
+                    stuff.args = new string[] { API.GetConvar("priority_chat_sender_name", "^1PriorityCooldown"), "You must specify a time in mins for this command" };
                     stuff.color = new int[] { 255, 255, 0 };
                     iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
                     return;
@@ -93,7 +90,7 @@ namespace PriAOPServer
                 if (!int.TryParse(args[0].ToString(), out currentPC))
                 {
                     dynamic stuff = new System.Dynamic.ExpandoObject();
-                    stuff.args = new string[] { "^1PriorityCooldown", $"You must specify a number when using this command" };
+                    stuff.args = new string[] { API.GetConvar("priority_chat_sender_name", "^1PriorityCooldown"), "The time value must me a number please try again" };
                     stuff.color = new int[] { 255, 255, 0 };
                     iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
                     return;
@@ -106,30 +103,24 @@ namespace PriAOPServer
             }
             else
             {
-                dynamic stuff = new System.Dynamic.ExpandoObject();
-                stuff.args = new string[] { "^1PriorityCooldown", $"Nice try, you dont have permission to use this command" };
-                stuff.color = new int[] { 255, 255, 0 };
-                iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
+                SendPermissionErrorMessage(iPriAOP.IPlayerList[p]);
                 return;
             }
         }
 
         private async void PCInProgress(int p, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(p))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[p].Handle, "priaop.priority.use"))
             {
-                API.SetConvarReplicated("priority_cooldown", $"Priority in Progress");
+                API.SetConvarReplicated("priority_cooldown", API.GetConvar("priority_inprogress_message", "Priority in Progress"));
                 API.SetConvarReplicated("priority_status", "inprogress");
                 pcStarted = false;
                 inPC = false;
             }
             else
             {
-                dynamic stuff = new System.Dynamic.ExpandoObject();
-                stuff.args = new string[] { "^1PriorityCooldown", $"Nice try, you dont have permission to use this command" };
-                stuff.color = new int[] { 255, 255, 0 };
-                iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
+                SendPermissionErrorMessage(iPriAOP.IPlayerList[p]);
                 return;
             }
         }
@@ -138,22 +129,24 @@ namespace PriAOPServer
 
         private async void PCOnHold(int p, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(p))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[p].Handle, "priaop.priority.use"))
             {
-                API.SetConvarReplicated("priority_cooldown", $"All priorities are on hold");
+                API.SetConvarReplicated("priority_cooldown", API.GetConvar("priority_onhold_message","Priorities are on HOLD"));
                 API.SetConvarReplicated("priority_status", "onhold");
                 inPC = false;
                 pcStarted = false;
             }
             else
             {
-                dynamic stuff = new System.Dynamic.ExpandoObject();
-                stuff.args = new string[] { "^1PriorityCooldown", $"Nice try, you dont have permission to use this command" };
-                stuff.color = new int[] { 255, 255, 0 };
-                iPriAOP.IPlayerList[p].TriggerEvent("chat:addMessage", stuff);
+                SendPermissionErrorMessage(iPriAOP.IPlayerList[p]);
                 return;
             }
+        }
+
+        private async void SendPermissionErrorMessage(Player player)
+        {
+            PriAOPServer.SendPlayerChatMessage(player, API.GetConvar("priority_chat_sender_name", "^1PriorityCooldown"), API.GetConvar("priaop_permission_denied", $"Nice try, you dont have permission to use this command"));
         }
     }
 }
