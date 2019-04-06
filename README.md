@@ -1,6 +1,10 @@
 # Priority / AOP
 
-So when I was developing for a particular server i decided to combine 2 Great Resouces into one and make them run EVEN Better by implementing them with C# and the new Replicated Convar system(Thanks Vespura). Introducing a newly redesigned Priority Cooldown and Area of Patrol script that is FULLY customizable. below you will find the the list of Convars used to set everything and the ability to set it how you want. I have included a config file similar to the one used in vMenu to automatically set the convars to there default versions customize this file as you see fit and enjoy countless hours of Quality RP. Now on to the goodness
+So when I was developing for a particular server i decided to combine 2 Great Resouces into one and make them run EVEN Better by implementing them with C# and the new Replicated Convar system(Thanks Vespura). Introducing a newly redesigned Priority Cooldown and Area of Patrol script that is FULLY customizable. below you will find the the list of Convars used to set everything and the ability to set it how you want. I have included a config file similar to the one used in vMenu. You can uncomment the commands to customize PriAOP as you see fit and enjoy countless hours of Quality RP. Now on to the goodness
+
+This includes a cfg file make sure you execute it like vMenu with the following command in your server.cfg file
+
+exec [location of priaop.cfg]
 
 ## Priority Cooldown
 
