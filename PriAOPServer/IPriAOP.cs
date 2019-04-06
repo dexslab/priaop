@@ -9,7 +9,6 @@ namespace PriAOPServer
 {
     interface IPriAOP
     {
-        Task<bool> CheckPerms(int id);
         PlayerList IPlayerList { get; }
     }
 }

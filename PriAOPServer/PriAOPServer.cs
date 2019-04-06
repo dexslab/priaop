@@ -37,7 +37,6 @@ namespace PriAOPServer
 
         public PriAOPServer()
         {
-            EventHandlers.Add("priaop:GetIsStaff", new Action<Player>(GetIsStaff));
             priorityCooldown = new PriorityCooldown(this);
             areaOfPatrol = new AreaOfPatrol(this);
             priorityCooldown.RegisterCommands();
@@ -48,18 +47,6 @@ namespace PriAOPServer
         private async Task PriAOPServer_Tick()
         {
             priorityCooldown.PriorityCooldown_Tick();
-        }
-
-        public async Task<bool> CheckPerms(int id)
-        {
-            string permGroups = API.GetConvar("priaop_allowed_groups", "admin,mod");
-            List<string> groups = permGroups.Split(',').ToList();
-            bool allow = false;
-            foreach(string group in groups)
-            {
-                API.IsPlayerAceAllowed(Players[id].Handle, "priaop.use");
-            }
-            return allow;
         }
 
         public static void SendPlayerChatMessage(Player player,string sender, string message)

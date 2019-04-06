@@ -4,7 +4,7 @@ So when I was developing for a particular server i decided to combine 2 Great Re
 
 ## Priority Cooldown
 
-Priority Cooldown has been revamped to include a dynamic countdown with color customization and the abilty to set countdown length in MINUTES. You can also like the classic script reset the cooldown to 0. I have also added Friendly Fire control so players cannot kill other players. This also includes a Bypass option for staff members only(Will not be changed).
+Priority Cooldown has been revamped to include a dynamic countdown with color customization and the abilty to set countdown length in MINUTES. You can also like the classic script reset the cooldown to 0. I will also added Friendly Fire control soon so players cannot kill other players. This will also includes a Bypass option for staff members only.
 
 ### Common Convars
 
@@ -27,18 +27,19 @@ Priority Cooldown has been revamped to include a dynamic countdown with color cu
 
 These can be set using server console, RCON, or the various commands above
 
-|Convar| Replicated|Default|Description|
+|Convar|Replicated|Default|Description|
 |--|--|--|--|
+|priority_chat_sender_name|false|^1PriorityCooldown|Name in chat box when spamming anything AOP related|
 |priority_cooldown|true|priority_onhold_message|Current Priority Cooldown message displayed to players|
-|priority_status|true|onhold|Current Priority Cooldown status used to set messages and control Friendly Fire|
+|priority_status|true|onhold|Current Priority Cooldown status used to set messages|
 |priority_onhold_message|false|Priorities are on HOLD|Message for priority on hold|
-|priority_onhold_color|false|245,19,23,255|Color for priority on hold message (color must be set as r,g,b,a no extra characters and numbers only)|
-|priority_cooldown_message|false|Priority Cooldown: %s until the next priority can begin|Message for priority on cooldown (%s is the timer)|
-|priority_cooldown_color|false|245,157,50,255|Color for priority on cooldown message
+|priority_onhold_color|true|245,19,23,255|Color for priority on hold message (color must be set as r,g,b,a no extra characters and numbers only)|
+|priority_cooldown_message|false|Priority Cooldown: {0} until the next priority can begin|Message for priority on cooldown ({0} is the timer)|
+|priority_cooldown_color|true|245,157,50,255|Color for priority on cooldown message
 |priority_inprogress_message|false|Priority in Progress|Message for priority in progress|
-|priority_inprogress_color|false|19,23,245,255|Color for priority in progress message|
+|priority_inprogress_color|true|19,23,245,255|Color for priority in progress message|
 |priority_finished_message|false|Peace time has ended|Message for priority cooldown complete|
-|priority_finished_color|false|80,252,12,255|Color for priority cooldown complete message|
+|priority_finished_color|true|80,252,12,255|Color for priority cooldown complete message|
 
 ## Area of Patrol
 
@@ -65,7 +66,7 @@ These can be set using server console, RCON, or the various commands above
 |current_aop|true|Los Santos|The current area of play|
 |aop_chat_spam_count|false|3|How many times to spam AOP in change when it changes|
 |aop_chat_sender_name|false|^1AOP|Name in chat box when spamming anything AOP related|
-|aop_chat_message|false|Area of Patrol has moved to ^1^_%s^r^7 please finish your RP and move to new AOP location|Message for priority on hold|
+|aop_chat_message|false|Area of Patrol has moved to ^1^_{0}^r^7 please finish your RP and move to new AOP location|Message spammed in chat when AOP is changed where {0} is the AOP|
 |aop_sandy|false|Sandy Shores|The name of Sandy Shores|
 |aop_city|false|Los Santos|The name of Los Santos|
 |aop_blaine|false|Blaine County|The name of Blaine County|

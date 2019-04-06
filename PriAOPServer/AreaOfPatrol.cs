@@ -30,7 +30,7 @@ namespace PriAOPServer
         private async void SendAOPMessage(string aop)
         {
             for (int i = 1; i <= API.GetConvarInt("aop_chat_spam_count", 3); i++) {
-                PriAOPServer.SendChatMessage(API.GetConvar("aop_chat_sender_name", "^1AOP"), String.Format(API.GetConvar("aop_chat_message", $"Area of Patrol has moved to ^1^_%s^r^7 please finish your RP and move to new AOP location"),aop));
+                PriAOPServer.SendChatMessage(API.GetConvar("aop_chat_sender_name", "^1AOP"), String.Format(API.GetConvar("aop_chat_message", $"Area of Patrol has moved to ^1^_{0}^r^7 please finish your RP and move to new AOP location"),aop));
             }
         }
         private async void SendPermissionErrorMessage(Player player)
@@ -40,11 +40,11 @@ namespace PriAOPServer
 
         private async void SetAOP(int source, List<object> args, string raw)
         {
-            if (await iPriAOP.CheckPerms(source))
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 if (args.Count < 1)
                 {
-                    PriAOPServer.SendPlayerChatMessage(iPriAOP.IPlayerList[source], API.GetConvar("aop_chat_sender_name", "^1AOP"), API.GetConvar("aop_location_missing", $"You must specify a location when using this command"));
+                    PriAOPServer.SendPlayerChatMessage(iPriAOP.IPlayerList[source], API.GetConvar("aop_chat_sender_name", "^1AOP"), $"You must specify a location when using this command");
                     return;
                 }
                 StringBuilder sb = new StringBuilder();
@@ -63,8 +63,8 @@ namespace PriAOPServer
 
         private async void SetAOPCity(int source, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(source))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_city","Los Santos");
                 SendAOPMessage(aop);
@@ -78,8 +78,8 @@ namespace PriAOPServer
 
         private async void SetAOPSandy(int source, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(source))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_sandy", "Sandy Shores");
                 SendAOPMessage(aop);
@@ -93,8 +93,8 @@ namespace PriAOPServer
 
         private async void SetAOPBlaine(int source, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(source))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_blaine", "Blaine County");
                 SendAOPMessage(aop);
@@ -109,7 +109,7 @@ namespace PriAOPServer
         private async void SetAOPLosSantosCounty(int source, List<object> args, string raw)
         {
 
-            if (await iPriAOP.CheckPerms(source))
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_lossantos", "Los Santos County");
                 SendAOPMessage(aop);
@@ -123,8 +123,8 @@ namespace PriAOPServer
 
         private async void SetAOPPaleto(int source, List<object> args, string raw)
         {
-            
-            if (await iPriAOP.CheckPerms(source))
+
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_paleto", "Paleto Bay");
                 SendAOPMessage(aop);
@@ -138,7 +138,7 @@ namespace PriAOPServer
 
         private async void SetAOPState(int source, List<object> args, string raw)
         {
-            if (await iPriAOP.CheckPerms(source))
+            if (API.IsPlayerAceAllowed(iPriAOP.IPlayerList[source].Handle, "priaop.aop.use"))
             {
                 string aop = API.GetConvar("aop_state", "Statewide");
                 SendAOPMessage(aop);
